@@ -1,0 +1,47 @@
+<!--  rpg_quadrotor_mpc
+      A model predictive control implementation for quadrotors.
+      Copyright (C) 2017-2018 Philipp Foehn, 
+      Robotics and Perception Group, University of Zurich
+   
+      Intended to be used with rpg_quadrotor_control and rpg_quadrotor_common.
+      https://github.com/uzh-rpg/rpg_quadrotor_control
+  
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+  
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<launch>
+  <!-- <arg name="quad_name" /> -->
+  <arg name="quad_name" default="hummingbird_mpc"/>
+  <group ns="$(arg quad_name)" >
+
+    <node pkg="rpg_mpc" type="mpc_controller_node" name="mpc_controller" output="screen">
+      <!-- <rosparam file="$(find state_predictor)/parameters/hummingbird.yaml" /> -->
+      <rosparam file="$(find rpg_mpc)/parameters/default.yaml" />
+      <!-- <rosparam file="$(find rpg_rotors_interface)/parameters/autopilot.yaml" /> -->
+
+      <!-- <param name="velocity_estimate_in_world_frame" value="false" />
+      <param name="state_estimate_timeout" value="0.1" />
+      <param name="control_command_delay" value="0.05" />
+      <param name="enable_command_feedthrough" value="false" /> -->
+
+      <!-- <remap from="autopilot/state_estimate" to="ground_truth/odometry" /> -->
+    </node>
+
+    <!-- <node pkg="rviz"
+          type="rviz"
+          name="rviz">
+    </node> -->
+  </group>
+</launch>
